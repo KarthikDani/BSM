@@ -40,5 +40,12 @@
     "title": "1  Introduction to Measurements",
     "section": "1.6 Step Reponses",
     "text": "1.6 Step Reponses\n\n1.6.1 Step response of Zero order instrument\nW.K.T that the relation for zero order instrument \\(q_o = K q_i\\)\nA good example being, consider a linear potentiometer used for displacement measurement where the len\n\n\n\nLinear Potentiometer\n\n\nlet the potentiometer be of length \\(L\\) to which the input displacement applied be \\(x\\). If \\(R_p\\) is the total resitance of the potentiometer and \\(R_i\\) is the resistance at wiper position, we can write resistance at wiper position as,\n\\[e_o = IR_i \\]\nwhich becomes,\n\\[e_o = \\frac{E}{R_p} R_i\\]\nAssuming uniform distrubution of the resistance over entire length of potentiometer,\n\\[e_o = \\frac{E}{L} x\\]\nReplacing \\(K = \\frac{E}{L}x\\) (Static Sensitivity) we get,\n\\[e_o = Kx\\]\n\n\n\n\n\n\n\nWhen a step input is applied to this system, there will not be any delay for the step output, assuming potentiometer to be purely resistive. Parasitic inductance and capacitance are assumed negligible.\n\nThus Zero order instruments output will instantaneously follow the input.\n\n\n1.6.2 Step response of First order instrument\nW.K.T, the tranfer function of the first order instrument is given by,\n\\[\n\\frac{q_o}{q_i} (D) = \\frac{K}{\\tau D + 1}\n\\]\nA very popular example is a clinical thermometer. It takes a certain amount of time for mercury to rise. This depends on co efficient of linear explansion of mercury, volume of the bulb, etc.\nIt is shown that,\n\\[ q_o = K q_i ( 1 - e^{\\frac{-t}{\\tau}} ) \\]\n\n\n\n\n\n\n\n\n1.6.3 Step response of second order instrument\nA very popular example for second order instrument is a force measuring mechanical spring scale.\nIt produces a dsiplacement of \\(x_0\\) as a function of the force input applied. This is shown in figure below:\n\n\n\nForce measuring mechanical spring scale"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Biomedical Sensors and Measurement",
+    "section": "",
+    "text": "Preface\nThis is a book on Biomedical Sensors and Measurement course, taught by Dr. S.P.Bhanu Prashanth sir 😎\n\nAll Plots are Interactive, you can play with the graph, download, zoom in or out and explore the values yourself. This is the advantage of a website like this for BSM notes over something static like a PDF.\nDesktop mode is recommended for viewing, as this involved the point 1 as well as a big screen view."
   }
 ]
