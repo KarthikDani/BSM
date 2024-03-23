@@ -3,7 +3,7 @@ project:
 
 book:
   title: "Biomedical Sensors and Measurement"
-  author: "Karthik Dani"
+  author: "BSM Class notes by Dr. S.B.Bhanu Prashanth, Digital content created by Karthik Dani"
   date: "3/22/2024"
   chapters:
     - index.qmd
