@@ -1,0 +1,790 @@
+```{r include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+```
+
+# Introduction to Measurements {#CHAPTER-Introduction-to-Measurements}
+
+Measurement can be defined as the process of expressing a natural phenomenon in quantitative terms. It is a process of associating numbers with a natural phenomena or a condition or a process, with appropriate units. eg: Distance of 200km, brightness of 400 lumens, etc.
+
+Measurement assumes a greater importance in all fields of science and technology such as physical, chemical, biomedical, electric, magnetic, nuclear parameters and so on..
+
+But why?
+
+## Importance of Measurement
+
+Measurement is the most fundamental process that is very much required to bring meaning to all that we do.
+
+> As one of the most fundamental quatity we measure is `time` and is very much essential in daily routine.
+
+Hence it becomes the most essential starting point in all manufacturing industries including bio medical industry. Similarly in every field of science and technology!
+
+## How do we measure?
+
+Measurements are done using scientifically designed and developed devices and techniques, called `Measuring Instruments (MI)`. Such as `Thermometer` for temperature and `Wattmeter` for power.
+
+Process of measurement can either be `absolute` or `relative`
+
+```{r ProcessOfMeasurement, echo=FALSE, fig.width=5, fig.height=2}
+
+library(DiagrammeR)
+
+# Create a new graph
+grViz("
+  digraph flowchart {
+    # Define nodes
+    node [shape = rectangle]
+    A [label = 'Measurement']
+    B [label = 'Absolute']
+    C [label = 'Relative']
+
+    # Define edges
+    A -> B
+    A -> C
+  }
+")
+```
+
+> Absolute: We directly measure using the instrument.
+
+> Relative: We compare unknown quantity with known standard, such as mechanical weighing scale.
+
+## Classification of Measuring Instruments
+
+```{r ClassficationOfMeasuringInstruments, echo=FALSE, fig.width=5, fig.height=2, fig.align='center'}
+
+library(DiagrammeR)
+
+# Create a new graph
+grViz("
+  digraph flowchart {
+
+    A [label = 'Measuring Instruments']
+    B [label = 'Instruments for 
+    Monitoring']
+    C [label = 'Instruments for 
+    Control']
+    D [label = 'Instruments
+    for Scientific Studies
+    and Investigations']
+
+    # Define edges
+    A -> B []
+    A -> C
+    A -> D
+  }
+")
+```
+
+### Instruments for Monitoring
+
+> Provide visual indication of the measured quantity
+
+|    Instrument    |            Purpose             |
+|:----------------:|:------------------------------:|
+|   Thermometer    |     Indicates temperature      |
+|    Barometer     | Indicates atmospheric pressure |
+| Weighing machine |   Indicates measured weight    |
+
+: Examples of Instruments developed for Monitoring
+
+### Instruments for Control
+
+> Any parameter should be first measured before it is controlled.
+
+It is only when we know the difference between required value and actual value. This correction helps calculate appropriate correction or implement a control mechanism. It is impossible to control without measuring.
+
+[![Control System Diagram](control_system.png)](https://www.electricalandcontrol.com/feedback-control-system/)
+
+### Instruments used for Scientific studies or Investigations
+
+Compared to the first two categories, these are more sophisticated and expensive. Refer [List of scientific instruments](https://www.geeksforgeeks.org/list-of-scientific-instruments-and-their-uses/)
+
+## Instrumentation
+
+> It is a process of desiging, developing, manufacturing and utilizing of instruments for indication , recording, computing, communicating, manipulating, analyzing, controlling, processing, etc.
+
+Based on area of measurement, we can have further classifications as bio medical instrumentation, chemical, electronic, scientific and analytical, space instrumentation, oceanography instrumentation, etc.
+
+It is important to understand the context and `scope of measurement`, which helps us to choose te the most appropriate technique for measurement.
+
+eg:
+
+-   Measuring body temperature of infant ***vs*** Measuring temperature of surface of the sun
+
+-   Measuring volume of lungs ***vs*** volume of a dam
+
+-   Measuring heart beat of a healthy adult ***vs*** that of a fetus
+
+So, to select the measuring instruments carefully, it's extremely important to compare their performances! This is generally understood through a set of performance characteristics.
+
+## Performance Characteristics
+
+```{r PerformanceCharacteristics, echo=FALSE, fig.width=6, fig.height=2, fig.align='center'}
+
+library(DiagrammeR)
+
+# Create a new graph
+grViz("
+  digraph flowchart {
+
+    A [label = 'Instrument Permance Characteristics']
+    B [label = 'Static Performance 
+    Characteristics']
+    C [label = 'Dynamic Performance 
+    Characteristics']
+
+    # Define edges
+    A -> B
+    A -> C
+  }
+")
+```
+
+### Static Performance Chacteristics
+
+A set of characteristics are defined when instrument is used for constant inputs. All static characteristics are obtained through `Static Calibration`
+
+```{r StaticCalibrationCurve, echo=FALSE, fig.cap="Static Calibration curve with effects of noise"}
+
+# Load the ggplot2 package
+library(ggplot2)
+library(plotly)
+
+# Generate example data for the calibration curve (replace this with your actual data)
+calibration_data <- data.frame(
+  True_value = seq(0, 100, length.out = 50),  # True values
+  Measured_value = seq(0, 100, length.out = 50) + rnorm(50, 0, 3)  # Measured values with some noise
+)
+
+options(warn = -1)
+
+ggplotly(
+# Plot the calibration curve
+ggplot(calibration_data, aes(x = True_value, y = Measured_value)) +
+  geom_point(color = "blue", size = 1.5, na.rm = TRUE) +  # Add points
+  geom_line(method = "lm", se = FALSE, color = "green", na.rm = TRUE) +  # Add linear regression line
+  labs(x = "True Value (q_in)", y = "Measured Value (q_out)", title = "Static Calibration Curve") +  # Add axis labels and title
+  theme_minimal()  # Apply minimal theme for a clean look
+)
+```
+
+Measured Value (MV)
+
+:   Reading provided by instrument when certain quantity is measured.
+
+True Value (TV) / Actual Value (AV)
+
+:   It is value measured through a method that is `agreed by the experts` using `International Standard` techniques under standard conditions.
+
+Static Error (SE)
+
+:   Static Error can be either positive or negative depending on the instrument output. $$SE = MV - TV$$
+
+Static Correction (SC)
+
+:   Static Correction is the opposite of Static Error, applied to get the True Value $$SC = -SE$$
+
+Sensitivity (K)
+
+:   Sensitivity is defined as the ratio of change in output ( $\delta q_{out}$ ) to the change in input ( $\delta q_{in}$ ) $$K = \frac{\delta q_{out}}{\delta q_{in}} = \frac{\text{Effect}}{\text{Cause}}$$
+
+> It is generally desirable to have Higher Sensitivity.
+
+eg: A Mercury thermometer that gives $1mm/\degree\mathrm{C}$ displacement is preferred over another instrument that gives $0.73mm/\degree\mathrm{C}$
+
+Sensitivity ($K$) is slope of the Static Calibration Curve ($SCC$)
+
+```{r DeterminingSensitivity, echo=FALSE}
+library(ggplot2)
+library(plotly)
+
+# Sample data for the calibration curve
+calibration_data <- data.frame(
+  True_value = seq(0, 100, length.out = 50),  # True values
+  Measured_value = seq(0, 100, length.out = 50) + rnorm(50, 0, 3)  # Measured values with some noise
+)
+
+# Fit linear regression model
+lm_model <- lm(Measured_value ~ True_value, data = calibration_data)
+
+# Extract model coefficients
+intercept <- coef(lm_model)[1]
+slope <- coef(lm_model)[2]
+
+# Calculate sensitivity (K)
+sensitivity_slope <- slope
+
+# Calculate rise over run points
+rise_over_run_points <- data.frame(
+  True_value = c(25, 75),
+  Measured_value = predict(lm_model, newdata = data.frame(True_value = c(25, 75)))
+)
+
+# Create plot
+calibration_plot <- ggplot(calibration_data, aes(x = True_value, y = Measured_value)) +
+  geom_point(color = "blue", size = 1.5) +  # Add points
+  
+  geom_smooth(method = "lm", se = FALSE, color = "purple", na.rm = FALSE) +  # Add linear regression line
+  
+  geom_segment(data = rise_over_run_points, aes(x = True_value, y = 25, xend = True_value, yend = Measured_value),
+               color = "black", linetype = "dashed", size=0.8) +  # Add rise over run lines
+  geom_segment(data = rise_over_run_points, aes(x = 75, y = Measured_value, xend = True_value, yend = Measured_value), color = "black", linetype = "dashed", size=0.8) +  # Add rise over run lines
+  
+  annotate("text", x = 50, y = 20, label = "x", color = "black") +  # Annotate rise
+  annotate("text", x = 80, y = 50, label = "y", color = "black") +  # Annotate run
+  
+  annotate("text", x = 75, y = 20, label = paste("K = y/x =", round(sensitivity_slope, 2)), color = "black") +  # Annotate sensitivity
+  labs(x = "True Value (q_in)", y = "Measured Value (q_out)",  # Axis labels
+       title = "Static Calibration Curve",  # Plot title
+       caption = "Data Source: Your Instrument") +  # Caption
+  theme_minimal()  # Apply minimal theme for aesthetics
+
+# Print plot
+ggplotly(calibration_plot)
+
+```
+
+Linearity
+
+:   Degree of straight line relationship between $\ q_{in}$ and $\ q_{out}$
+
+```{r Linearity Curves, echo=FALSE, fig.align='center', fig.height=3, fig.width=5}
+library(plotly)
+
+# Generate linear data
+linear_data <- data.frame(
+  x = seq(0, 10, length.out = 100),
+  y = 2 * seq(0, 10, length.out = 100) + 3  # y = 2x + 3 (perfectly linear)
+)
+
+# Generate nonlinear data
+nonlinear_data <- data.frame(
+  x = seq(0, 10, length.out = 100),
+  y = 2 * seq(0, 10, length.out = 100) + 3 + 0.5 * seq(0, 10, length.out = 100)^2  # Nonlinear relationship
+)
+
+# Create linear plot
+linear_plot <- plot_ly(data = linear_data, x = ~x, y = ~y, type = "scatter", mode = "lines", name = "Linear Instrument") %>%
+  layout(xaxis = list(title = "Input"), yaxis = list(title = "Output"), title = "Linear Instrument Response")
+
+# Create nonlinear plot
+nonlinear_plot <- plot_ly(data = nonlinear_data, x = ~x, y = ~y, type = "scatter", mode = "lines", name = "Nonlinear Instrument") %>%
+  layout(xaxis = list(title = "Input"), yaxis = list(title = "Output"), title = "")
+
+# Combine plots
+subplot(linear_plot, nonlinear_plot, 
+         nrows = 1, widths = c(0.5, 0.5))
+```
+
+It is desirable that an instrument exhibits good linearity. This makes input and output relationship predictible. However many instruments or devices exhibit Non-linearity and maybe preferred due to their other advantages.
+
+When response is linear, sensitivity can be found anywhere in the range. When it is Non-linear, since the slope changes, multiple sensitivity values are measured and expressed for smaller range of inputs.
+
+Drifts
+
+:   Three types of drifts are exhibited by instruments. They are `Zonal drift`, `Span drift` and `Zero drift` as shown.
+
+```{r Drifts, echo=FALSE}
+library(plotly)
+
+# Generate data for the initial graph (no drift)
+x <- seq(0, 10, length.out = 100)
+initial_data <- data.frame(x = x, y = 0.1 * x)
+
+# Generate data for zonal drift (linear with sparse settling noise)
+set.seed(123)
+zonal_slope <- 0.1
+zonal_intercept <- 0
+zonal_drift <- zonal_slope * x + zonal_intercept + rnorm(100, 0, 0.02)  # Sparse settling noise
+
+# Generate data for span drift (linear with adjusted slope)
+span_slope <- 0.15
+span_intercept <- 0
+span_drift <- span_slope * x + span_intercept
+
+# Generate data for zero drift (linear with shifted y-intercept)
+zero_slope <- 0.1
+zero_intercept <- 2
+zero_drift <- zero_slope * x + zero_intercept
+
+# Create initial graph
+initial_plot <- plot_ly(data = initial_data, x = ~x, y = ~y, type = "scatter", mode = "lines", line = list(color = "black"), name = "Initial Graph") %>%
+  layout(xaxis = list(title = "Input"), yaxis = list(title = "Output"))
+
+# Create zonal drift graph with initial graph
+zonal_plot <- initial_plot %>%
+  add_trace(data = data.frame(x = x, y = zonal_drift), x = ~x, y = ~y, type = "scatter", mode = "lines", line = list(color = "blue"), name = "Zonal Drift")
+
+# Create span drift graph with initial graph
+span_plot <- initial_plot %>%
+  add_trace(data = data.frame(x = x, y = span_drift), x = ~x, y = ~y, type = "scatter", mode = "lines", line = list(color = "green"), name = "Span Drift")
+
+# Create zero drift graph with initial graph
+zero_plot <- initial_plot %>%
+  add_trace(data = data.frame(x = x, y = zero_drift), x = ~x, y = ~y, type = "scatter", mode = "lines", line = list(color = "red"), name = "Zero Drift")
+
+# Add axis labels
+zonal_plot <- zonal_plot %>% layout(xaxis = list(title = "Input"), yaxis = list(title = "Output"))
+span_plot <- span_plot %>% layout(xaxis = list(title = "Input"), yaxis = list(title = "Output"))
+zero_plot <- zero_plot %>% layout(xaxis = list(title = "Input"), yaxis = list(title = "Output"))
+
+# Arrange plots horizontally
+subplot(zonal_plot, span_plot, zero_plot, nrows = 1)
+
+```
+
+Drifts are undesirable but they appear in instruments. Among the three, Zero and Zonal drifts are easy to eliminate.
+
+Hysterisis
+
+:   Hysteresis is the degree of non coincidence of loading and unloading curve.
+
+```{r Hysteresis, echo=FALSE}
+library(hysteresis)
+library(plotly)
+
+# Set m and n values
+m <- 3
+n <- 3
+
+# Generate hysteresis loop data
+obj <- mloop(m = m, n = n, n.points = 100, period = 99)
+loop <- floop(obj$x, obj$y, m = m, n = n, period = 99)
+
+# Create data frames for plotly
+loop_df <- data.frame(x = loop$x, y = loop$y)
+loop_df_rev <- data.frame(x = rev(loop$x), y = rev(loop$y))
+
+# Create shaded area trace
+shaded_area <- list(x = c(loop_df$x, rev(loop_df_rev$x)), 
+                    y = c(loop_df$y, rev(loop_df_rev$y)), 
+                    fill = "toself", fillcolor = "rgba(0,0,255,0.3)", line = list(color = "transparent"), showlegend = FALSE)
+
+# Calculate the area enclosed by the hysteresis loop (manually)
+hysteresis_area <- sum(loop_df$x[-1] * (loop_df$y[-1] + loop_df$y[-length(loop_df$y)]) / 2)
+
+# Create annotation for the hysteresis area
+hysteresis_annotation <- list(
+  x = loop_df$x[79],
+  y = loop_df$y[95],
+  text = paste("Area:", round(hysteresis_area, 2), "sq units"),
+  showarrow = FALSE,
+  font = list(color = "black")
+)
+
+# Create plotly plot
+plot_ly() %>%
+  add_trace(x = loop_df$x, y = loop_df$y, type = "scatter", mode = "lines", name = "Loading Curve", line = list(color = "blue")) %>%
+  add_trace(x = loop_df_rev$x, y = loop_df_rev$y, type = "scatter", mode = "lines", name = "Unloading Curve", line = list(color = "red")) %>%
+  add_trace(x = c(loop_df$x, rev(loop_df_rev$x)), y = c(loop_df$y, rev(loop_df_rev$y)), 
+            type = "scatter", mode = "none", fill = "toself", fillcolor = "rgba(0,0,255,0.3)", showlegend = FALSE) %>%
+  layout(title = paste("Simulated Hysteresis Loop"),
+         xaxis = list(title = "Input", zeroline = TRUE),
+         yaxis = list(title = "Output", zeroline = TRUE),
+         annotations = list(
+           list(x = loop_df$x[75], y = loop_df$y[70], text = "Loading Curve", showarrow = TRUE, font = list(color = "blue")),
+           list(x = loop_df_rev$x[70], y = loop_df_rev$y[70], text = "Unloading Curve", showarrow = TRUE, font = list(color = "red")),
+           hysteresis_annotation
+         ))
+
+```
+
+For an instrument during Static Calibration, let's apply input in increasing direction (0 to max) leading to `loading curve`. Let's next apply input in decreasing direction (max to 0) leading to `unloading curve`
+
+Ideally the two curves should overlap but in reality, they don't. Hysteresis is present mostly in mechanical instruments which exhibit friction, inertia and backlash due to moving paths.
+
+Threshold
+
+:   The smallest measurable input
+
+```{r threshold, echo=FALSE}
+library(plotly)
+
+# Generate data
+x <- seq(0, 5, length.out = 100)
+y <- ifelse(x <= 3, 0, x - 3)
+
+# Create plotly plot
+plot_ly(x = ~x, y = ~y, type = 'scatter', mode = 'lines', name = 'Instrument Response', line = list(color = 'purple')) %>%
+  add_trace(x = c(3, 3), y = c(0, max(y)), type = 'scatter', mode = 'lines', name = 'Threshold', line = list(color = 'black', dash = 'dash')) %>%
+  layout(title = "Instrument Response with Threshold at x = 3",
+         xaxis = list(title = "Input (x)"),
+         yaxis = list(title = "Output (y)"))
+
+
+```
+
+When the input is increased from 0, an instrument may not produce detectable output till the input crosses a certain `threshold` value. This is predominant in mechanical instruments.
+
+Resolution
+
+:   Resolution is the ability of an instrument to discriminate between two readings.
+
+eg:
+
+-   a voltmeter that can measure 10V and 11V has resolution of 1V because it cannot differentiate anything between the 10 and 11.
+
+-   Another voltmeter that can measure 10.1V and 10.2V has resolution of 0.1V
+
+> Higher resolution is always desirable. Digital instruments typically have higher resolution than analog instruments as number of significant digits (digits after decimal point) are easily extendable to acheive higher resolution in digital instruments.
+
+Repeatability
+
+: When a certain quantity is measured again and again, `repeatability` is the ability of the instrument to give the same value.
+
+When same quantity is measured at different instants of time, it's ability to give same readings is called `reproducibility`
+
+### Dynamic Performance Characteristics
+
+These characteristics define how an instruments responds to a dynamic or time varying input.
+
+The general mathematical model of a dynamic instrument which is a linear differential equation can be represented by the following form:
+
+$$
+a_n \frac{{d^n q_o}}{{dt^n}} + a_{n-1} \frac{{d^{n-1} q_o}}{{dt^{n-1}}} + \ldots + a_1 \frac{{dq_o}}{{dt}} + a_0 q_o = b_0 x + b_1 \frac{{dq_i}}{{dt}} + b_2 \frac{{d^2 q_i}}{{dt^2}} + \ldots + b_m \frac{{d^m q_i}}{{dt^m}}
+$$
+for example, In a clinical thermometer, the volume of the bulb, density and viscocity of the liquid, coefficient of linear expansion, diameter of capillary tube, etc will be some constant values and their combinations will determine $a$'s and $b$'s
+
+To keep the equation simple, replace $\frac{{d}}{{dt}}$ by $D$ we get:
+
+$$
+(a_n D^n + a_{n-1} D^{n-1} + \ldots + a_1 D + a_0)q_o = (b_0 + b_1 D + b_2 D^2 + \ldots + b_m D^m) q_i
+$$
+
+We generally don't require so many terms to define typical instruments. So consider a few constants are adequate to define an instrument and force all other constants to $0$. Using this we classify:
+
+```{r dynamicInstruments, echo=FALSE, fig.height=2, fig.width=5}
+
+library(DiagrammeR)
+
+# Create a new graph
+grViz("
+  digraph flowchart {
+
+    # Define nodes
+    node [shape = rectangle]
+    Classification [label = 'Classification of Dynamic Instruments']
+    Order [label = 'Order of Response']
+    Zero_Order [label = 'Zero Order']
+    First_Order [label = 'First Order']
+    Second_Order [label = 'Second Order']
+
+    node [shape = rectangle]
+    Zero_Examples [label = 'Examples: 
+    Thermocouples, Thermistors, Simple Transducers']
+    First_Examples [label = 'Examples: 
+    RC Circuits, CR Circuits, Simple Transducers']
+    Second_Examples [label = 'Examples: 
+    RC Circuits, RL Circuits, Strain Gauge']
+
+    # Define edges
+    Classification -> Order
+    Order -> Zero_Order
+    Order -> First_Order
+    Order -> Second_Order
+    Zero_Order -> Zero_Examples
+    First_Order -> First_Examples
+    Second_Order -> Second_Examples
+  }
+")
+
+
+```
+
+#### Zero order instrument
+All constants except $a_0$ and $b_0$ are assumed to be $0$. The equation now becomes,
+$$a_0 q_o = b_0 q_i$$
+
+$$q_o = \frac{b_0}{a_0}q_i$$
+
+$$q_o = K q_i $$
+
+where $k = \frac{b_0}{a_0}$
+
+> Any instrument that obeys the simple algebraic equation above is called the `Zero order` instrument
+
+#### First order instrument
+
+All the constants except $a_1$, $a_0$ and $b_0$ are assumed to be $0$. Hence the LDE for First order instrument becomes,
+
+A first-order dynamic instrument can be represented by a first-order linear ordinary differential equation (ODE). The general form of a first-order ODE is:
+
+$$
+( a_1 D + a_0 ) q_o = b_0 q_i
+$$
+
+Dividing by $a_0$ on both sides we get,
+
+$$
+(\frac{a_1}{a_0} D + 1) q_o = \frac{b_0}{a_0} q_i
+$$
+
+Replacing $\tau = \frac{a_1}{a_0}$ called the `time constant` (in seconds)and $K = \frac{b_0}{a_0}$ called `static sensitivity` we get,
+
+$$
+(\tau D + 1) q_o = K q_i
+$$
+
+Therefore, 
+
+$$
+\frac{q_o}{q_i} (D) = \frac{K}{\tau D + 1}
+$$
+
+
+#### Second order instrument
+
+All constants except $a_2$, $a_1$, $a_0$ and $b_0$ are considered and the rest of coefficients are $0$, the equation simplifies to `Second order` DE. Hence, any instrument that obeys this equation is called the second order instrument.
+
+To derive the second-order differential equation (ODE) from the generalized ODE, we'll start with the following generalized form:
+
+$$
+a_2 \frac{{d^2 y(t)}}{{dt^2}} + a_1 \frac{{dy(t)}}{{dt}} + a_0 y(t) = b_0 x(t)
+$$
+where $y(t)$ is the dynamic output due to dynamic input $x(t)$. Replacing $\frac{d}{dt}$ by $D$ we get,
+
+$$
+( a_2 D^2 + a_1 D + a_0 )y(t) = b_0 x(t)
+$$
+Dividing by $a_0$ on both sides we get,
+
+$$
+\frac{{a_2}}{{a_0}}D^2 y(t) + \frac{{a_1}}{{a_0}}D y(t) + \frac{{a_0}}{{a_0}}y(t) = \frac{{b_0}}{{a_0}} x(t)
+$$
+
+Replacing,
+
+- $\omega_n = \sqrt{\frac{a_0}{a_2}}$ called `undamped natural frequency`
+
+- $\zeta = \frac{a_1}{2 \sqrt{a_0 a_2}}$ called `damping factor` which dictates time response of the second order system and 
+
+- $K = \frac{b_0}{a_0}$ (Static senstivity) we get,
+
+$$
+( \frac{D^2}{\omega_n ^ 2} + 2 \frac{\zeta}{\omega_n} D + 1 ) y(t) = K x(t)
+$$
+Hence the `Transfer function` $\frac{y}{x} D$ becomes,
+
+$$
+\frac{y}{x} (D) = \frac{K}{\frac{D^2}{\omega_n ^ 2} + 2 \frac{\zeta}{\omega_n} D + 1 } 
+$$
+
+It is not a mere ratio of output and input quantities, instead it tells the general relationship that exists between output and input of a given instrument. 
+
+- When the operator is $D$, it is called the `Operational transfer function`
+- When the operator is $S$ it is called `Laplace transfer function`
+- When the operator is $j\omega$ it is called `Sinusoidal transfer function`
+
+Let's look at the solution of the second order LDE. The `complete solution` has two parts: sum of the `particular integral` part and the `complementary solution` part,
+
+```{r SOSClassfifcationofSolutions, echo=FALSE, fig.width=5, fig.height=2}
+library(DiagrammeR)
+
+# Create a new graph
+grViz("
+  digraph flowchart {
+
+    A [label = 'Roots of the Characterisitic Equation for 
+  Second order']
+    
+    B [label = 'Real and unrepeated']
+    C [label = 'Real and repeated']
+    D [label = 'Complex']
+    
+    E [label = 'Overdamped']
+    F [label = 'Critically damped']
+    G [label = 'Underdamped']
+
+    # Define edges
+    A -> B
+    A -> C
+    A -> D
+    
+    B -> E
+    C -> F
+    D -> G
+  }
+")
+```
+> In practice, the type of the root is dictated by the value of `damping factor` and for the given value of `undamped natural frequency`
+
+It is now possible to apply standard test inputs such as `step input` or a `ramp input` or a `sinusoidal input` and understand how each of the system responds to that input.
+
+## Step Reponses
+### Step response of Zero order instrument
+
+W.K.T that the relation for zero order instrument $q_o = K q_i$
+
+A good example being, consider a `linear potentiometer` used for `displacement measurement` where the len
+
+![Linear Potentiometer](linear_pot.png)
+
+
+let the potentiometer be of length $L$ to which the input displacement applied be $x$. If $R_p$ is the total resitance of the potentiometer and $R_i$ is the resistance at wiper position, we can write resistance at wiper position as,
+
+$$e_o = IR_i $$
+
+which becomes,
+
+$$e_o = \frac{E}{R_p} R_i$$
+
+Assuming uniform distrubution of the resistance over entire length of potentiometer,
+
+$$e_o = \frac{E}{L} x$$
+
+Replacing $K = \frac{E}{L}x$ (Static Sensitivity) we get,
+
+$$e_o = Kx$$
+
+```{r op, echo=FALSE}
+
+library(plotly)
+
+# Define the parameters
+K <- 1.5  # Gain
+Td <- 2   # Time delay
+
+# Define the time range
+t <- seq(0, 10, by = 0.1)
+
+# Define the step input function
+step_input <- function(t) {
+  ifelse(t >= 0, 1, 0)  # Step function: 1 for t >= 0, 0 otherwise
+}
+
+# Define the step response function for zero-order instrument
+step_response_zero_order <- function(t, K, Td) {
+  output <- rep(0, length(t))
+  for (i in 1:length(t)) {
+    if (t[i] >= Td) {
+      output[i] <- K
+    }
+  }
+  return(output)
+}
+
+# Generate the step response
+step_response <- step_response_zero_order(t, K, Td)
+
+# Create the plotly plot
+plot <- plot_ly() %>%
+  add_lines(x = t, y = step_input(t), name = "Step Input", line = list(color = 'purple')) %>%
+  add_lines(x = t, y = step_response, name = "Step Response", line = list(color = 'green')) %>%
+  layout(title = "Step Response of Zero-Order Instrument",
+         xaxis = list(title = "Time"),
+         yaxis = list(title = "Response"),
+         legend = list(orientation = "h"))
+
+# Display the plot
+plot
+
+```
+
+
+> When a step input is applied to this system, there will not be any delay for the step output, assuming potentiometer to be purely resistive. Parasitic inductance and capacitance are assumed negligible.
+
+Thus Zero order instruments output will instantaneously follow the input.
+
+### Step response of First order instrument
+
+W.K.T, the tranfer function of the first order instrument is given by,
+
+$$
+\frac{q_o}{q_i} (D) = \frac{K}{\tau D + 1}
+$$
+
+A very popular example is a clinical thermometer. It takes a certain amount of time for mercury to rise. This depends on co efficient of linear explansion of mercury, volume of the bulb, etc.
+
+It is shown that,
+
+$$ q_o = K q_i ( 1 - e^{\frac{-t}{\tau}} ) $$
+```{r ct, echo=FALSE}
+
+library(plotly)
+
+# Define parameters
+tau <- 10  # Time constant (adjust as needed)
+t <- seq(0, 60, by = 0.1)  # Time vector
+
+# Define the first-order transfer function
+first_order <- function(t, tau) {
+  1 - exp(-t / tau)
+}
+
+# Simulate response for different time constants
+tau_values <- c(5, 10, 15)  # Different time constants to simulate
+responses <- sapply(tau_values, function(tau_val) first_order(t, tau_val))
+
+# Create a data frame for plotly
+response_df <- data.frame(t, responses)
+
+# Plotting
+plot_ly(response_df, x = ~t) %>%
+  add_lines(y = ~responses[,1], name = "tau = 5", line = list(color = "blue")) %>%
+  add_lines(y = ~responses[,2], name = "tau = 10", line = list(color = "red")) %>%
+  add_lines(y = ~responses[,3], name = "tau = 15", line = list(color = "green")) %>%
+  layout(title = "Step Response of 1st Order Instrument",
+         xaxis = list(title = "Time"),
+         yaxis = list(title = "Response"),
+         legend = list(title = "Time Constant (tau)"))
+
+
+```
+
+### Step response of second order instrument
+
+A very popular example for second order instrument is a force measuring mechanical spring scale.
+
+It produces a dsiplacement of $x_0$ as a function of the force input applied. This is shown in figure below:
+
+![Force measuring mechanical spring scale](force_spring_scale.png)
+
+```{r sss, echo=FALSE}
+
+
+library(plotly)
+
+# Define parameters
+zeta_values <- c(0.2, 1, 2)  # Damping ratios (underdamped, critically damped, overdamped)
+wn <- 1  # Natural frequency
+t <- seq(0, 10, by = 0.01)  # Time vector
+
+# Define second-order transfer function (step response)
+second_order <- function(t, wn, zeta) {
+  wd <- wn * sqrt(1 - zeta^2)  # Damped natural frequency
+  if (zeta < 1) {
+    # Underdamped
+    return(1 - exp(-zeta * wn * t) * (cos(wd * t) + zeta / sqrt(1 - zeta^2) * sin(wd * t)))
+  } else if (zeta == 1) {
+    # Critically damped
+    return(1 - (1 + wn * t) * exp(-wn * t))
+  } else {
+    # Overdamped
+    r1 <- -wn * (zeta + sqrt(zeta^2 - 1))
+    r2 <- -wn * (zeta - sqrt(zeta^2 - 1))
+    A <- (-r1 + r2) / (r1 - r2)
+    B <- 1 - A
+    return(1 - A * exp(r1 * t) - B * exp(r2 * t))
+  }
+}
+
+# Simulate responses for different damping ratios
+responses <- sapply(zeta_values, function(zeta_val) second_order(t, wn, zeta_val))
+
+# Create a data frame for plotly
+response_df <- data.frame(t, responses)
+
+# Plotting
+p <- plot_ly(response_df, x = ~t) %>%
+  add_lines(y = ~responses[,1], name = "Underdamped (ζ = 0.2)", line = list(color = "blue")) %>%
+  add_lines(y = ~responses[,2], name = "Critically Damped (ζ = 1)", line = list(color = "red")) %>%
+  add_lines(y = ~responses[,3], name = "Overdamped (ζ = 2)", line = list(color = "green")) %>%
+  layout(title = "Step Response of 2nd Order System (Force Measuring Mechanical Spring Scale)",
+         xaxis = list(title = "Time (s)"),
+         yaxis = list(title = "Response"),
+         legend = list(title = "Damping Ratio (ζ)"))
+
+p  # Display the plot
+
+
+```

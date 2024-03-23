@@ -1,0 +1,6 @@
+# Preface {.unnumbered}
+
+This is a book on Bio medical Sensors and Measurement course, taught by Dr. S.P.Bhanu Prashanth sir 😎
+
+1.  All Plots are Interactive, you can play with the graph, download, zoom in or out and explore the values yourself. This is the advantage of a website like this for BSM notes over something static like a PDF.
+2.  Desktop mode is recommended for viewing, as this involved the point 1 as well as a big screen view.

@@ -1,0 +1,21 @@
+project:
+  type: book
+
+book:
+  title: "Biomedical Sensors and Measurement"
+  author: "Karthik Dani"
+  date: "3/22/2024"
+  chapters:
+    - index.qmd
+    - Measurements.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
